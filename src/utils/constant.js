@@ -2,6 +2,6 @@
 
 //export const SOCKET_URL = 'http://localhost:5000';
 
-export const API_HOST = "https://systempcs.herokuapp.com/api"
+export const API_HOST = "https://mye-soporte-server.herokuapp.com/api"
 
-export const SOCKET_URL = "https://systempcs.herokuapp.com/"
+export const SOCKET_URL = "https://mye-soporte-server.herokuapp.com/"
