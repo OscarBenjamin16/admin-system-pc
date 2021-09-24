@@ -37,7 +37,7 @@ const Auth = ({setRefreshCheckLogin}) => {
             </div>
             <div className="section-two">
               <h1 className="absolute log-text top-28 mt-10 ml-10 font-semibold text-2xl">
-                SYSTEM PC
+                MyE Soporte Tecnico Informatico
               </h1>
               <img className="first-svg" src={SVGFirst} alt="none" />
             </div>
