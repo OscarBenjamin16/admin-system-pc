@@ -143,7 +143,7 @@ const Table = (props) => {
                     {product.catidad_por_unidad < 1 && (
                       <button
                         onClick={() => addStock(product)}
-                        className="bg-green-500 ml-4  p-2 text-xs  rounded text-white font-semibold"
+                        className="bg-green-500 ml-4  p-2 text-xs whitespace-nowrap  rounded text-white font-semibold"
                       >
                         Agregar stock
                       </button>
@@ -191,7 +191,7 @@ const Table = (props) => {
           showModal={showAddStock}
           setShowModal={setShowAddStock}
         >
-          <StockForm setShowModal={setShowAddStock} idP={productStock?.id} />
+          <StockForm setReload={setReload} setShowModal={setShowAddStock} idP={productStock?.id} />
         </Modal>
       </div>
     </div>

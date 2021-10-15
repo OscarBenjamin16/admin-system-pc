@@ -36,8 +36,8 @@ const Auth = ({setRefreshCheckLogin}) => {
               <a href="/forgot" className="text-xs ml-8 text-white">Olvidaste tu password?</a>
             </div>
             <div className="section-two">
-              <h1 className="absolute log-text top-28 mt-10 ml-10 font-semibold text-2xl">
-                MyE Soporte Tecnico Informatico
+              <h1 className="absolute log-text top-28 mt-10 ml-10 font-semibold text-xl">
+                M&E Soporte Tecnico Informatico
               </h1>
               <img className="first-svg" src={SVGFirst} alt="none" />
             </div>

@@ -52,3 +52,16 @@
 .bg-global{
   background-color: #00b9ae;
 }
+
+input{
+  outline: none !important;
+  padding-left:2px !important;
+}
+
+select{
+  outline: none !important;
+}
+
+textarea{
+  outline: none !important;
+}

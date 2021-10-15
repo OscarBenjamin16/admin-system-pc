@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { ProductService } from "../../services/product.service";
 import { toast } from "react-toastify";
 
-const StockForm = ({ idP,setShowModal }) => {
+const StockForm = ({ idP,setShowModal,setReload }) => {
     const prdService = new ProductService()
   const formik = useFormik({
     initialValues: defaultValues(),
@@ -24,6 +24,7 @@ const StockForm = ({ idP,setShowModal }) => {
           if(res.ok){
             setShowModal(false)
             toast.success("Se actualizo el stock del producto")
+            setReload(true)
             return;
           }
           toast.error("Ocurrio un error al actualizar el stock")

@@ -41,6 +41,8 @@ const Form = (props) => {
 
     if (!product_file) {
       toast.warn("Se guardo el registro con una imagen por defecto!!");
+      setReload(true);
+      setShowModal(false);
       return;
     }
     productService
@@ -132,7 +134,7 @@ const Form = (props) => {
             <div className="grid grid-rows-2 gap-0">
               <label>Nombre</label>
               <input
-                className="rounded border border-solid p-1 text-sm w-auto"
+                className="rounded border border-solid py-1 px-2 text-sm w-auto"
                 placeholder="Escribe el nombre"
                 defaultValue={product.nombre_producto}
                 name="nombre_producto"
@@ -197,9 +199,9 @@ const Form = (props) => {
                 defaultValue={product.descripcion}
                 name="descripcion"
                 onChange={onChange}
-                className="form-textarea border -mt-5"
+                className="form-textarea border -mt-5 px-2 py-1 text-sm"
                 rows="3"
-                placeholder="Enter some long form content."
+                placeholder="Ingresa la descripcion del producto"
               />
             </div>
             <button
