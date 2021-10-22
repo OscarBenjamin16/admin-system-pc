@@ -3,9 +3,6 @@ import TDComponent from "../global/tables/TDComponent";
 import THComponent from "../global/tables/THComponent";
 import Modal from "../global/modal/Modal";
 import Form from "./Form";
-import { ProductService } from "../../services/product.service";
-import Detail from "./Detail";
-import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteAction from "../global/DeleteAction";
 import useAuth from "../../hooks/useAuth";
@@ -15,37 +12,11 @@ import { Link } from "react-router-dom";
 const Table = (props) => {
   const { products, setReload, marks, providers, categories } = props;
   const [showModal, setShowModal] = useState(false);
-  const [productDetail, setProductDetail] = useState(null);
   const [product, setProduct] = useState(null);
-  const [showDetail, setShowDetail] = useState(false);
   const [showAddStock, setShowAddStock] = useState(false);
   const [productStock, setProductStock] = useState();
-  const productService = new ProductService();
   const { auth } = useAuth();
-  const change = (product) => {
-    const query = {
-      id: product.id,
-    };
-    if (product.catidad_por_unidad >= 2) {
-      productService.changeStatus(query).then((res) => {
-        if (res.ok) {
-          setReload(true);
-          return;
-        }
-        toast.error(res.message);
-        return;
-      });
-    } else {
-      toast.warning(
-        "No puedes cambiar de estado!!!  no hay productos en inventario"
-      );
-    }
-  };
 
-  const detail = (product) => {
-    setProductDetail(product);
-    setShowDetail(true);
-  };
   const deleteProduct = (id) => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -91,7 +62,9 @@ const Table = (props) => {
                     <Link to={`/product/${product.id}`}>{product.id}</Link>
                   </TDComponent>
                   <TDComponent>
-                  <Link to={`/product/${product.id}`}>{product.nombreProducto}</Link>
+                    <Link to={`/product/${product.id}`}>
+                      {product.nombreProducto}
+                    </Link>
                   </TDComponent>
                   <TDComponent name={product.codigo_Producto} />
                   <TDComponent>
@@ -154,18 +127,6 @@ const Table = (props) => {
           </tbody>
         </table>
         {/* DetailModal */}
-        <Modal
-          showModal={showDetail}
-          setShowModal={setShowDetail}
-          title={productDetail?.nombreProducto}
-        >
-          <Detail
-            product={productDetail}
-            setShowModal={setShowModal}
-            showModal={showModal}
-            setShowDetail={setShowDetail}
-          />
-        </Modal>
         {/* Edit Modal */}
         <Modal
           setShowModal={setShowModal}
