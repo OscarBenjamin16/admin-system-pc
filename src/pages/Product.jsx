@@ -10,6 +10,7 @@ import { ProductService } from "../services/product.service";
 import Table from "../components/product/Table";
 import Pagination from "../components/global/Pagination";
 import { toast } from "react-toastify";
+import InputSearch from "../components/global/InputSearch";
 
 const Product = ({ showModal, setShowModal }) => {
   const [marks, setMarks] = useState(null);
@@ -96,11 +97,13 @@ const Product = ({ showModal, setShowModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Productos
             </h2>
-            <input
-              onChange={(e) => setSearch(e.target.value)}
-              className="border p-1 rounded w-96 mt-4"
-              placeholder="Escribe para filtrar los productos"
+           <div style={{width:"70%"}} className="mt-4">
+           <InputSearch
+              label="Buscar por nombre"
+              placeholder="Escribe para buscar un producto..."
+              handleChange={(e) => setSearch(e.target.value)}
             />
+           </div>
             <button
               onClick={() => setShowModal(true)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"

@@ -230,6 +230,20 @@ const Form = (props) => {
               </div>
             </div>
           )}
+          {oldProduct && (
+            <div className="grid grid-rows-2 gap-0">
+              <label>Precio de venta</label>
+              <div className="flex">
+              <input
+                className="rounded border border-solid py-1 px-2 text-sm w-full"
+                placeholder="Escribe el precio de venta"
+                defaultValue={oldProduct && product?.costo_standar}
+                name="costo_standar"
+                onChange={onChange}
+              />
+              </div>
+            </div>
+          )}
           {!oldProduct && (
             <div className="grid grid-rows-2 gap-0">
               <label>Codigo</label>
@@ -289,7 +303,8 @@ const values = (prod) => {
     proveedor: "" || prod?.proveedor.id,
     marca: "" || prod?.marca.id,
     categoria: "" || prod?.categoria.id,
-    descuento: prod?.descuento || null,
+    descuento: prod?.descuento || 0,
     id: null || prod?.id,
+    costo_standar: null || prod?.costo_standar
   };
 };

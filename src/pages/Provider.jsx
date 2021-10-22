@@ -6,6 +6,7 @@ import Table from "../components/provider/Table";
 import Layout from "../layout/Layout";
 import { ProviderService } from "../services/provider.service";
 import Pagination from "../components/global/Pagination";
+import InputSearch from "../components/global/InputSearch";
 
 const Provider = ({ setShowModal, showModal }) => {
   const [providers, setProviders] = useState(null);
@@ -48,11 +49,13 @@ const Provider = ({ setShowModal, showModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Proveedores
             </h2>
-            <input
-              onChange={(e) => setSearch(e.target.value)}
-              className="border p-1 rounded w-96 mt-4"
-              placeholder="Escribe para filtrar los proveedores"
+            <div style={{width:"70%"}} className="mt-4">
+           <InputSearch
+              label="Buscar por nombre"
+              placeholder="Escribe para buscar un proveedor..."
+              handleChange={(e) => setSearch(e.target.value)}
             />
+           </div>
             <button
               onClick={() => setShowModal(true)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"

@@ -10,6 +10,7 @@ import { confirmAlert } from "react-confirm-alert";
 import DeleteAction from "../global/DeleteAction";
 import useAuth from "../../hooks/useAuth";
 import StockForm from "./StockForm";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const { products, setReload, marks, providers, categories } = props;
@@ -86,16 +87,12 @@ const Table = (props) => {
             {products && products?.length > 0 ? (
               products.map((product, index) => (
                 <tr key={index}>
-                  <TDComponent
-                    name={product.id}
-                    onclick={() => detail(product)}
-                    cursor="cursor-pointer"
-                  />
-                  <TDComponent
-                    name={product.nombreProducto}
-                    onclick={() => detail(product)}
-                    cursor="cursor-pointer"
-                  />
+                  <TDComponent cursor="cursor-pointer">
+                    <Link to={`/product/${product.id}`}>{product.id}</Link>
+                  </TDComponent>
+                  <TDComponent>
+                  <Link to={`/product/${product.id}`}>{product.nombreProducto}</Link>
+                  </TDComponent>
                   <TDComponent name={product.codigo_Producto} />
                   <TDComponent>
                     <img src={product.image} alt="" />
@@ -108,7 +105,7 @@ const Table = (props) => {
                           type="checkbox"
                           checked={product.status === 1 ? true : false}
                           className="hidden"
-                          onChange={() => change(product)}
+                          readOnly
                           value={product.status}
                         />
                         <div className="toggle__line w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
@@ -191,7 +188,11 @@ const Table = (props) => {
           showModal={showAddStock}
           setShowModal={setShowAddStock}
         >
-          <StockForm setReload={setReload} setShowModal={setShowAddStock} idP={productStock?.id} />
+          <StockForm
+            setReload={setReload}
+            setShowModal={setShowAddStock}
+            idP={productStock?.id}
+          />
         </Modal>
       </div>
     </div>

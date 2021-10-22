@@ -7,6 +7,7 @@ import Modal from "../components/global/modal/Modal";
 import Form from "../components/category/Form";
 import Pagination from "../components/global/Pagination";
 import { toast } from "react-toastify";
+import InputSearch from "../components/global/InputSearch";
 
 const Category = ({ showModal, setShowModal }) => {
   const categoryService = new CategoryService();
@@ -52,11 +53,13 @@ const Category = ({ showModal, setShowModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de categorias
             </h2>
-            <input
-              onChange={(e) => setSearch(e.target.value)}
-              className="border p-1 rounded w-96 mt-4"
-              placeholder="Escribe para filtrar las categorias"
+            <div style={{width:"70%"}} className="mt-4">
+           <InputSearch
+              label="Buscar por nombre"
+              placeholder="Escribe para buscar una categoria..."
+              handleChange={(e) => setSearch(e.target.value)}
             />
+           </div>
             <button
               onClick={() => setShowModal(!showModal)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-8"

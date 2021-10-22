@@ -31,6 +31,7 @@ export const Table = memo(({ orders, setReload }) => {
               <THComponent name="ID" />
               <THComponent name="Fecha de la orden" />
               <THComponent name="Cliente" />
+              <THComponent name="Codigo" />
               <THComponent name="Descuento" />
               <THComponent name="Total a pagar" />
               <THComponent name="Estado de la orden" />
@@ -51,6 +52,9 @@ export const Table = memo(({ orders, setReload }) => {
                   </TDComponent>
                   <TDComponent
                     name={order.cliente.nombre + " " + order.cliente.apellido}
+                  />
+                  <TDComponent
+                    name={order.codigoOrden}
                   />
                   <TDComponent name={"$" + order.TotalDesc} />
                   <TDComponent name={"$" + order.PrecioTotal} />

@@ -65,3 +65,11 @@ select{
 textarea{
   outline: none !important;
 }
+
+.search{
+  padding-left: 35px !important;
+}
+
+.img{
+  max-width: 80px;
+}
