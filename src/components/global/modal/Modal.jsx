@@ -1,39 +1,73 @@
-import React from "react";
+import { Fragment, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Modal = ({ showModal, setShowModal, children, title }) => {
+  const cancelButtonRef = useRef(null);
   return (
-    <>
-      {showModal ? (
-        <>
-          <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none"
-            style={{ zIndex: 60 }}
+    <Transition.Root show={showModal} as={Fragment}>
+      <Dialog
+        as="div"
+        static
+        className="fixed z-10 inset-0 overflow-y-auto"
+        initialFocus={cancelButtonRef}
+        open={showModal}
+        onClose={setShowModal}
+      >
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <div className="relative w-auto my-6 mx-auto">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-auto bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-3 border-b border-solid border-gray-300 rounded-t">
-                  <h3 className="font-semibold text-lg">{title}</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          />
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-300"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div className="inline-block align-bottom p-6 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle">
+              <div className="bg-white">
+                <div className="sm:flex sm:items-start">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg border-b py-2 leading-6 font-medium text-gray-900"
+                    >
+                      {title}
+                    </Dialog.Title>
+
+                    <div className="mt-2 ">{children}</div>
+                  </div>
+                  <span
                     onClick={() => setShowModal(false)}
+                    className="float-right cursor-pointer"
+                    ref={cancelButtonRef}
                   >
-                    <span className=" overflow-hidden bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+                    <FontAwesomeIcon icon={faTimes} />{" "}
+                  </span>
                 </div>
-                {/*body*/}
-                <div className="relative p-6 flex-auto">{children}</div>
               </div>
             </div>
-          </div>
-          <div className="fixed opacity-50 inset-0 z-50 bg-black"></div>
-        </>
-      ) : null}
-    </>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
   );
-}
+};
 
 export default Modal;

@@ -30,8 +30,8 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
   };
   return (
     <>
-      <ul className="h-screen border-r border-solid">
-        <li className="p-4 border-b border-solid">
+      <ul className="h-screen">
+        <li className="p-4">
           {openMenu ? (
             <FontAwesomeIcon
               className="   text-white text-xl cursor-pointer"
@@ -47,17 +47,17 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
           )}
         </li>
         <Link to="/">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer">
             <FontAwesomeIcon className="   text-white text-lg" icon={faHome} />
           </li>
         </Link>
         <Link to="/product">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer">
             <FontAwesomeIcon className="text-white text-lg" icon={faDesktop} />
           </li>
         </Link>
         <Link to="/mark">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer">
             <FontAwesomeIcon
               className="   text-white text-lg"
               icon={faListAlt}
@@ -65,7 +65,7 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
           </li>
         </Link>
         <Link to="/category">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer  border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer ">
             <FontAwesomeIcon
               className="   text-white text-lg"
               icon={faClipboardList}
@@ -73,7 +73,7 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
           </li>
         </Link>
         <Link to="/provider">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer  border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer ">
             <FontAwesomeIcon
               className="   text-white text-lg"
               icon={faTruckMoving}
@@ -81,24 +81,24 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
           </li>
         </Link>
         <Link to="/coupons">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer">
             <FontAwesomeIcon className="text-white text-lg" icon={faTags} />
           </li>
         </Link>
         <Link to="/sales">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer ">
             <FontAwesomeIcon className="text-white text-lg" icon={faChartBar} />
           </li>
         </Link>
         <Link to="/reports">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer ">
             <FontAwesomeIcon className="text-white text-lg" icon={faFilePdf} />
           </li>
         </Link>
         {auth.role === "admin" && (
           <>
             <Link to="/users">
-              <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+              <li className="p-3 justify-center content-center flex cursor-pointer ">
                 <FontAwesomeIcon
                   className="text-white text-lg"
                   icon={faUsers}
@@ -106,7 +106,7 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
               </li>
             </Link>
             <Link to="/employee">
-              <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+              <li className="p-3 justify-center content-center flex cursor-pointer ">
                 <FontAwesomeIcon
                   className="text-white text-lg"
                   icon={faUserTie}
@@ -116,7 +116,7 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
           </>
         )}
         <Link to="/account">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+          <li className="p-3 justify-center content-center flex cursor-pointer ">
             <FontAwesomeIcon
               className="text-white text-lg"
               icon={faUserCircle}
@@ -125,7 +125,7 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
         </Link>
         <li
           onClick={loggoutUser}
-          className="p-3 justify-center content-center flex border-b cursor-pointer border-solid"
+          className="p-3 justify-center content-center flex cursor-pointer"
         >
           <FontAwesomeIcon
             className="   text-white text-lg"

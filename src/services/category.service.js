@@ -21,8 +21,8 @@ export class CategoryService extends TokenService {
     });
     return response.json();
   }
-  async putCategory(data) {
-    const response = await fetch(`${API_HOST}/categoria/${data.id}`, {
+  async putCategory(data,id) {
+    const response = await fetch(`${API_HOST}/categoria/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

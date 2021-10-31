@@ -4,17 +4,16 @@ import { OrderService } from "../services/order.service";
 import { Table } from "../components/sales/Table";
 import io from "socket.io-client";
 import Pagination from "../components/global/Pagination";
-import Modal from "../components/global/modal/Modal";
-import { Form } from "../components/sales/Form";
 import { toast } from "react-toastify";
 import { SOCKET_URL } from "../utils/constant";
 import InputSearch from "../components/global/InputSearch";
+import { Link } from "react-router-dom";
 
-const Sales = ({ showModal, setShowModal }) => {
+const Sales = () => {
   const [orders, setOrders] = useState();
   const [search, setSearch] = useState("");
   const [reload, setReload] = useState(false);
-  const [rangePag, setRangePag] = useState(null);
+  const [page, setPage] = useState(1);
   const [reloadSocket, setReloadSocket] = useState(false);
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -22,9 +21,7 @@ const Sales = ({ showModal, setShowModal }) => {
     currentPage: 0,
     totalPages: 0,
   });
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
+
   const orderService = new OrderService();
   const serverURL = SOCKET_URL;
   const socket = useMemo(
@@ -54,8 +51,8 @@ const Sales = ({ showModal, setShowModal }) => {
     return callSocket();
   }, [callSocket]);
 
-  const getOrders = useCallback((page = 1,search) => {
-    orderService.getOrders(page,search).then((res) => {
+  const getOrders = useCallback((page = 1, search) => {
+    orderService.getOrders(page, search).then((res) => {
       if (res.ok) {
         setOrders(res.ordenes);
         setPagination({
@@ -64,7 +61,6 @@ const Sales = ({ showModal, setShowModal }) => {
           currentPage: res.currentPage,
           totalPages: res.totalPages,
         });
-        range(1, res.totalPages);
       }
     });
     setReload(false);
@@ -73,15 +69,15 @@ const Sales = ({ showModal, setShowModal }) => {
 
   useEffect(() => {
     setReloadSocket(false);
-    getOrders();
+    getOrders(page);
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reloadSocket]);
+  }, [reloadSocket, page]);
 
   useEffect(() => {
-    return getOrders(pagination.currentPage || pagination.nextPage || 1,search);
+    return getOrders(page, search);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload,search]);
+  }, [reload, search, page]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -97,25 +93,17 @@ const Sales = ({ showModal, setShowModal }) => {
                 handleChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"
-            >
-              Agregar
-            </button>
-            <Modal
-              setShowModal={setShowModal}
-              showModal={showModal}
-              title="Agregar"
-            >
-              <Form setReload={setReload} setShowModal={setShowModal} />
-            </Modal>
+            <Link to="/new-sale">
+              <button className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14">
+                Agregar
+              </button>
+            </Link>
             <Table orders={orders} setReload={setReload} />
-            {pagination?.totalPages > 1 && (
+            {pagination && pagination?.totalPages > 1 && (
               <Pagination
-                method={getOrders}
-                pagination={pagination}
-                rangePag={rangePag}
+                method={setPage}
+                totalPages={pagination?.totalPages}
+                current={pagination?.currentPage}
               />
             )}
           </div>

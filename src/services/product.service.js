@@ -33,9 +33,9 @@ export class ProductService extends TokenService {
     });
     return response.json();
   }
-  async showProducts(page, search) {
+  async showProducts(page, search,limit=5) {
     const response = await fetch(
-      `${API_HOST}/producto/products-paginate?pagina=${page}&producto=${search}`
+      `${API_HOST}/producto/products-paginate?pagina=${page}&producto=${search}&limit=${limit}`
     );
     return response.json();
   }

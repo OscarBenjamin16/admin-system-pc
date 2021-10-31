@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EmployeeService } from "../services/employe.service";
 import { isEmail } from "../utils/regularExpression";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -35,11 +36,15 @@ export default function ForgotPassword() {
     });
   };
   return (
-    <div className="p-10 flex justify-items-center content-center justify-center items-center w-full h-screen">
-      <div className="w-96 h-auto shadow rounded p-10">
+    <div className="p-10 flex justify-items-center content-center forgot-content justify-center items-center w-full h-screen">
+      <div className="w-96 h-auto bg-white shadow rounded p-10">
+        <p className="text-base font-semibold text-gray-600 py-4">
+          Recuperar contraseña!
+        </p>
+        <label className="text-xs font-semibold text-gray-600">Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
-          className=" border w-full rounded text-xs py-1 px-4"
+          className=" border w-full rounded text-xs py-2 px-2"
           placeholder="Ingresa tu email"
         />
         <div className="flex-col flex mt-3">
@@ -66,13 +71,13 @@ export default function ForgotPassword() {
         </div>
         <button
           onClick={sendEmail}
-          className="bg-global px-8 mt-6 w-full text-xs text-white py-1 rounded mb-4"
+          className="mt-3 ml-3 md:ml-0 w-full bg-global rounded-md text-md p-1 font-semibold text-white"
         >
           Enviar
         </button>
-        <a href="/" className="text-xs pt-8">
+        <Link to="/" className="text-xs text-blue-500">
           Volver al inicio
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import InputSearch from "../components/global/InputSearch";
 
 const Provider = ({ setShowModal, showModal }) => {
   const [providers, setProviders] = useState(null);
-  const [rangePag, setRangePag] = useState(null);
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -19,11 +18,9 @@ const Provider = ({ setShowModal, showModal }) => {
     totalPages: 0,
   });
   const [reload, setReload] = useState(false);
+  const [page, setPage] = useState(1);
 
   const providerService = new ProviderService();
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
   const getProviders = (page = 1, search = "") => {
     providerService.showProviders(page, search).then((res) => {
       setProviders(res.proveedores);
@@ -33,14 +30,13 @@ const Provider = ({ setShowModal, showModal }) => {
         currentPage: res.currentPage,
         totalPages: res.totalPages,
       });
-      range(1, res.totalPages);
     });
   };
   useEffect(() => {
-    getProviders(1, search);
+    getProviders(page, search);
     setReload(false);
     return;
-  }, [reload || search]);
+  }, [reload, page, search]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -49,13 +45,13 @@ const Provider = ({ setShowModal, showModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Proveedores
             </h2>
-            <div style={{width:"70%"}} className="mt-4">
-           <InputSearch
-              label="Buscar por nombre"
-              placeholder="Escribe para buscar un proveedor..."
-              handleChange={(e) => setSearch(e.target.value)}
-            />
-           </div>
+            <div style={{ width: "70%" }} className="mt-4">
+              <InputSearch
+                label="Buscar por nombre"
+                placeholder="Escribe para buscar un proveedor..."
+                handleChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
             <button
               onClick={() => setShowModal(true)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"
@@ -71,11 +67,11 @@ const Provider = ({ setShowModal, showModal }) => {
             </Modal>
           </div>
           <Table setReload={setReload} providers={providers} />
-          {pagination?.totalPages > 1 && (
+          {pagination && pagination?.totalPages > 1 && (
             <Pagination
-              method={getProviders}
-              pagination={pagination}
-              rangePag={rangePag}
+              method={setPage}
+              current={pagination?.currentPage}
+              totalPages={pagination?.currentPage}
             />
           )}
         </div>

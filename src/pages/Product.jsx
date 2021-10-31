@@ -18,7 +18,7 @@ const Product = ({ showModal, setShowModal }) => {
   const [reload, setReload] = useState(false);
   const [providers, setProviders] = useState(null);
   const [products, setProducts] = useState(null);
-  const [rangePag, setRangePag] = useState(null);
+  const [page, setPage] = useState(1)
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -30,9 +30,6 @@ const Product = ({ showModal, setShowModal }) => {
   const categoryService = new CategoryService();
   const providerService = new ProviderService();
   const productService = new ProductService();
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
   const getValues = () => {
     markService
       .getMarks()
@@ -80,15 +77,14 @@ const Product = ({ showModal, setShowModal }) => {
         currentPage: res.currentPage,
         totalPages: res.totalPages,
       });
-      range(1, res.totalPages);
     });
   };
   useEffect(() => {
     getValues();
     setReload(false);
-    getProducts(1, search);
+    getProducts(page, search);
     return;
-  }, [reload || search]);
+  }, [reload,page, search]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -134,11 +130,11 @@ const Product = ({ showModal, setShowModal }) => {
             categories={categories}
             providers={providers}
           />
-          {pagination?.totalPages > 1 && (
+          {pagination && pagination?.totalPages > 1 && (
             <Pagination
-              method={getProducts}
-              pagination={pagination}
-              rangePag={rangePag}
+              method={setPage}
+              current={pagination?.currentPage}
+              totalPages={pagination?.currentPage}
             />
           )}
         </div>

@@ -95,7 +95,7 @@ const DeleteAction = ({ onClose, id, setReload, type }) => {
       <div className="flex justify-center content-center">
         <img src={Warn} alt="none" className="w-16" />
       </div>
-      <p>Esta seguro de eliminar este registro?</p>
+      <p className="text-normal font-semibold text-gray-600">Esta seguro de eliminar este registro?</p>
       <button
         onClick={deleteMethod}
         className="rounded text-center text-white px-4 bg-global"

@@ -10,6 +10,7 @@ import Pagination from "../components/global/Pagination";
 const Employee = ({ showModal, setShowModal }) => {
   const [employees, setEmployees] = useState();
   const [reload, setReload] = useState(false);
+  const [page, setPage] = useState(1);
   const { auth } = useAuth();
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -17,10 +18,6 @@ const Employee = ({ showModal, setShowModal }) => {
     currentPage: 0,
     totalPages: 0,
   });
-  const [rangePag, setRangePag] = useState(null);
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
   const empService = new EmployeeService();
   const getEmployes = (page = 1) => {
     empService.getPaginatedUser(page).then((res) => {
@@ -32,38 +29,45 @@ const Employee = ({ showModal, setShowModal }) => {
           currentPage: res.currentPage,
           totalPages: res.totalPages,
         });
-        range(1, res.totalPages);
       }
     });
   };
   useEffect(() => {
-    return getEmployes(1);
+    return getEmployes(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload]);
+  }, [reload, page]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
-      <div>
-            <span className="text-2xl font-semibold leading-tight">Listado de Empleados</span>
-            {auth.role === "admin" && (
-              <button
-                className="bg-global p-2 px-4 mt-2 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-8"
-                onClick={() => setShowModal(true)}
-              >
-                Agregar Empleado
-              </button>
-            )}
-            <Modal
-              showModal={showModal}
-              title="Agregar empleado"
-              setShowModal={setShowModal}
+        <div>
+          <span className="text-2xl font-semibold leading-tight">
+            Listado de Empleados
+          </span>
+          {auth.role === "admin" && (
+            <button
+              className="bg-global p-2 px-4 mt-2 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-8"
+              onClick={() => setShowModal(true)}
             >
-              <Form setReload={setReload} setShowModal={setShowModal} />
-            </Modal>
-          </div>
+              Agregar Empleado
+            </button>
+          )}
+          <Modal
+            showModal={showModal}
+            title="Agregar empleado"
+            setShowModal={setShowModal}
+          >
+            <Form setReload={setReload} setShowModal={setShowModal} />
+          </Modal>
+        </div>
         <div className="py-8">
           <Table employees={employees} />
-          <Pagination pagination={pagination} method={getEmployes} rangePag={rangePag} />
+          {pagination && pagination?.totalPages > 1 && (
+            <Pagination
+              method={setPage}
+              current={pagination?.currentPage}
+              totalPages={pagination?.currentPage}
+            />
+          )}
         </div>
       </div>
     </Layout>

@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { toast } from "react-toastify";
 import InputSearch from "../components/global/InputSearch";
 import Modal from "../components/global/modal/Modal";
 import Pagination from "../components/global/Pagination";
+import Waiting from "../components/global/Waiting";
+
 import Form from "../components/mark/Form";
-import Table from "../components/mark/Table";
 import Layout from "../layout/Layout";
 import { MarkService } from "../services/mark.service";
+const Table = lazy(() => import("../components/mark/Table"));
 
 const Mark = ({ showModal, setShowModal }) => {
   const mark_service = new MarkService();
   const [marks, setMarks] = useState(null);
   const [reload, setReload] = useState(false);
-  const [rangePag, setRangePag] = useState(null);
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -21,9 +23,6 @@ const Mark = ({ showModal, setShowModal }) => {
     currentPage: 0,
     totalPages: 0,
   });
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
   const getMarks = (page = 1, search = "") => {
     mark_service
       .showMarks(page, search)
@@ -35,17 +34,15 @@ const Mark = ({ showModal, setShowModal }) => {
           currentPage: res.currentPage,
           totalPages: res.totalPages,
         });
-        range(1, res.totalPages);
       })
       .catch(() => {
-        toast.error("Ah ocurrido un error inesperado")
+        toast.error("Ah ocurrido un error inesperado");
       });
   };
   useEffect(() => {
-    getMarks(1, search);
     setReload(false);
-    return;
-  }, [reload || search]);
+    return getMarks(page, search);
+  }, [reload, search, page]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -54,13 +51,13 @@ const Mark = ({ showModal, setShowModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Marcas
             </h2>
-            <div style={{width:"70%"}} className="mt-4">
-           <InputSearch
-              label="Buscar por nombre"
-              placeholder="Escribe para buscar una marca..."
-              handleChange={(e) => setSearch(e.target.value)}
-            />
-           </div>
+            <div style={{ width: "70%" }} className="mt-4">
+              <InputSearch
+                label="Buscar por nombre"
+                placeholder="Escribe para buscar una marca..."
+                handleChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
             <button
               onClick={() => setShowModal(true)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"
@@ -75,13 +72,11 @@ const Mark = ({ showModal, setShowModal }) => {
               <Form setReload={setReload} setShowModal={setShowModal} />
             </Modal>
           </div>
-          <Table marks={marks} setReload={setReload} />
+          <Suspense fallback={<Waiting />}>
+            <Table marks={marks} setReload={setReload} />
+          </Suspense>
           {pagination?.totalPages > 1 && (
-            <Pagination
-              method={getMarks}
-              pagination={pagination}
-              rangePag={rangePag}
-            />
+            <Pagination totalPages={pagination?.totalPages} current={pagination?.currentPage} method={setPage} />
           )}
         </div>
       </div>

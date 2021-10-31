@@ -131,82 +131,92 @@ const Form = (props) => {
       <div className="grid grid-cols-2 gap-1">
         <div className="w-72">
           <div>
-            <div className="grid grid-rows-2 gap-0">
-              <label>Nombre</label>
+            <div className="flex flex-col">
+              <label className="text-xs font-semibold text-gray-600">
+                Nombre
+              </label>
               <input
-                className="rounded border border-solid py-1 px-2 text-sm w-auto"
+                className="rounded border border-solid text-gray-600 mt-2 py-1 px-2 text-xs font-semibold w-auto"
                 placeholder="Escribe el nombre"
                 defaultValue={product.nombre_producto}
                 name="nombre_producto"
                 onChange={onChange}
               />
             </div>
-            <div className="grid grid-rows-2 gap-0">
-              <label>Marca</label>
+            <div className="flex flex-col mt-3">
+              <label className="text-xs font-semibold text-gray-600">
+                Marca
+              </label>
               <select
                 name="marca"
                 onChange={onChange}
                 defaultValue={oldProduct?.marca.id || "DEFAULT"}
-                className="form-select border text-sm p-1 block w-full"
+                className="form-select  border text-xs font-semibold text-gray-600 mt-2 p-1 block w-full"
               >
-                <option value="DEFAULT">Selecciona una marca</option>
+                <option className="text-xs font-semibold text-gray-600" value="DEFAULT">Selecciona una marca</option>
                 {marks?.map((mark, index) => (
-                  <option className="text-sm" key={index} value={mark.id}>
+                  <option className="text-xs font-semibold text-gray-600" key={index} value={mark.id}>
                     {mark.marca}
                   </option>
                 ))}
               </select>
             </div>
-            <div className="grid grid-rows-2 gap-0">
-              <label>Categoria</label>
+            <div className="flex flex-col mt-3">
+              <label className="text-xs font-semibold text-gray-600">
+                Categoria
+              </label>
               <select
                 onChange={onChange}
                 defaultValue={oldProduct?.categoria.id || "DEFAULT"}
                 name="categoria"
-                className="form-select border text-sm p-1 block w-full"
+                className="form-select mt-2 border text-xs font-semibold text-gray-600 p-1 block w-full"
               >
-                <option value="DEFAULT" disabled>
+                <option className="text-xs font-semibold text-gray-600" value="DEFAULT" disabled>
                   selecciona una categoria
                 </option>
                 {categories?.map((cat, index) => (
-                  <option key={index} value={cat.id}>
+                  <option className="text-xs font-semibold text-gray-600" key={index} value={cat.id}>
                     {cat.categoria}
                   </option>
                 ))}
               </select>
             </div>
-            <div className="grid grid-rows-2 gap-0">
-              <label>Proveedor</label>
+            <div className="flex flex-col mt-3">
+              <label className="text-xs font-semibold text-gray-600">
+                Proveedor
+              </label>
               <select
                 name="proveedor"
                 onChange={onChange}
                 defaultValue={oldProduct?.proveedor.id || "DEFAULT"}
-                className="form-select border text-sm p-1 block w-full"
+                className="form-select border text-xs font-semibold text-gray-600 mt-2 p-1 block w-full"
               >
-                <option value="DEFAULT" disabled>
+                <option className="text-xs font-semibold text-gray-600" value="DEFAULT" disabled>
                   selecciona un proveedor
                 </option>
                 {providers?.map((prov, index) => (
-                  <option key={index} value={prov.id}>
+                  <option className="text-xs font-semibold text-gray-600" key={index} value={prov.id}>
                     {prov.nombre_proveedor}
                   </option>
                 ))}
               </select>
             </div>
-            <div className="grid grid-rows-2 gap-0">
-              <label>Descripcion</label>
+            <div className="flex flex-col mt-3">
+              <label className="text-xs font-semibold text-gray-600">
+                Descripcion
+              </label>
               <textarea
                 defaultValue={product.descripcion}
                 name="descripcion"
                 onChange={onChange}
-                className="form-textarea border -mt-5 px-2 py-1 text-sm"
-                rows="3"
+                className="form-textarea border mt-2 px-2 py-1 text-xs font-semibold text-gray-600"
+                rows="4"
                 placeholder="Ingresa la descripcion del producto"
               />
             </div>
             <button
               type="submit"
-              className="bg-global p-2 w-28 text-center text-semibold mt-8 text-white rounded-md font-semibold text-xs mr-8"
+              className="bg-global p-2 w-full text-center text-semibold mt-8 text-white rounded-md font-semibold text-xs mr-8"
             >
               {textButton}
             </button>
@@ -214,44 +224,50 @@ const Form = (props) => {
         </div>
         <div className="w-72">
           {oldProduct && (
-            <div className="grid grid-rows-2 gap-0">
-              <label>Descuento</label>
+            <div className="flex flex-col">
+              <label className="text-xs font-semibold text-gray-600">
+                Descuento
+              </label>
               <div className="flex">
                 <input
-                  className="w-full border p-1 px-4 text-sm rounded border-r-0 focus:outline-none focus:border"
+                  className="w-full border p-1 px-4 text-xs font-semibold text-gray-600 mt-2 rounded border-r-0 focus:outline-none focus:border"
                   placeholder="Escribe el descuento"
                   defaultValue={product.descuento}
                   name="descuento"
                   onChange={onChange}
                 />
-                <span className="border px-4 py-1 text-sm rounded absolute mr-6 bg-gray-300 font-bold right-0">
+                <span className="border px-4 py-1 text-xs rounded mt-2 absolute mr-6 bg-gray-300 font-bold right-0">
                   %
                 </span>
               </div>
             </div>
           )}
           {oldProduct && (
-            <div className="grid grid-rows-2 gap-0">
-              <label>Precio de venta</label>
+            <div className="flex flex-col mt-3">
+              <label className="text-xs font-semibold text-gray-600">
+                Precio de venta
+              </label>
               <div className="flex">
-              <input
-                className="rounded border border-solid py-1 px-2 text-sm w-full"
-                placeholder="Escribe el precio de venta"
-                defaultValue={oldProduct && product?.costo_standar}
-                name="costo_standar"
-                onChange={onChange}
-              />
+                <input
+                  className="rounded border mt-2 border-solid py-1 px-2 text-xs font-semibold text-gray-600 w-full"
+                  placeholder="Escribe el precio de venta"
+                  defaultValue={oldProduct && product?.costo_standar}
+                  name="costo_standar"
+                  onChange={onChange}
+                />
               </div>
             </div>
           )}
           {!oldProduct && (
-            <div className="grid grid-rows-2 gap-0">
-              <label>Codigo</label>
-              <div className="flex">
+            <div className="flex flex-col">
+              <label className="text-xs font-semibold text-gray-600">
+                Codigo
+              </label>
+              <div className="flex mt-2">
                 <button
                   type="button"
                   onClick={setCode}
-                  className="p-1 text-sm rounded px-4 bg-green-400 text-white"
+                  className="p-1 text-xs font-semibold rounded px-4 bg-green-400 text-white"
                 >
                   Generar
                 </button>
@@ -261,7 +277,7 @@ const Form = (props) => {
                   name="codigo_producto"
                   defaultValue={product.codigo_producto}
                   placeholder="codigo de barras"
-                  className="border p-1 ml-2 rounded text-sm w-full"
+                  className="border p-1 ml-2 rounded text-xs font-semibold text-gray-600 w-full"
                 ></input>
               </div>
             </div>
@@ -282,7 +298,7 @@ const Form = (props) => {
           </div>
           <label className="w-full mt-2 p-1 flex items-center bg-white rounded-lg tracking-wide  border cursor-pointer">
             <img src={UploadIcon} alt="none" className="w-6 text-blue ml-2" />
-            <span className="text-sm leading-normal ml-4 ">
+            <span className="text-xs font-semibold text-gray-600 leading-normal ml-4 ">
               Seleccionar una imagen
             </span>
             <input {...getInputImgProps()} type="file" className="hidden" />
@@ -305,6 +321,6 @@ const values = (prod) => {
     categoria: "" || prod?.categoria.id,
     descuento: prod?.descuento || 0,
     id: null || prod?.id,
-    costo_standar: null || prod?.costo_standar
+    costo_standar: null || prod?.costo_standar,
   };
 };

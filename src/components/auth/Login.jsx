@@ -32,7 +32,7 @@ const Login = ({ setRefreshCheckLogin }) => {
   };
   return (
     <>
-      <h1 className="text-gray-300 text-sm mt-16 md:text-md font-semibold uppercase md:mt-24 text-center md:ml-6">
+      <h1 className="text-gray-600 text-sm md:text-md font-semibold uppercase text-center md:ml-6">
         Ingresa tus datos e inicia sesion!!
       </h1>
       {existUser.exist ? (
@@ -50,14 +50,14 @@ const Login = ({ setRefreshCheckLogin }) => {
             <Form>
               <div className="login-container grid w-80 p-8 mr-4 mt-6">
                 <div className="flex flex-col justify-center ml-5 md:ml-0 content-center">
-                  <label className="text-xs text-gray-300">
+                  <label className="text-xs font-semibold text-gray-600">
                     Codigo de acceso
                   </label>
                   <Field
                     name="code"
                     placeholder="Ingresa tu codigo de acceso"
                     className={
-                      "text-gray-500 w-full outline-none focus:outline-none rounded-sm px-4 text-xs py-1 mt-2" +
+                      "text-gray-500 w-full outline-none border focus:outline-none rounded-sm px-2 text-xs py-2 mt-2" +
                       (errors.code && touched.code
                         ? " border-red-500"
                         : " border-gray-300")
@@ -73,7 +73,7 @@ const Login = ({ setRefreshCheckLogin }) => {
                 </div>
                 <button
                   type="submit"
-                  className="mt-10 ml-3 md:ml-0 w-full md:w-6/12 login-button rounded-md text-md p-1 font-semibold text-white"
+                  className="mt-10 ml-3 md:ml-0 w-full bg-global rounded-md text-md p-1 font-semibold text-white"
                 >
                   Verificar
                 </button>

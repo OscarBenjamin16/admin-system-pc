@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Login from "../components/auth/Login";
-import SVGFirst from "../assets/one.svg";
-import SVGWave from "../assets/wavev4.svg";
+import Computer from "../assets/logo-oficial.png";
 import "./styles/auth.styles.css";
 import Register from "../components/auth/Register";
+import { Link } from "react-router-dom";
 import { EmployeeService } from "../services/employe.service";
 
-const Auth = ({setRefreshCheckLogin}) => {
+const Auth = ({ setRefreshCheckLogin }) => {
   const emplService = new EmployeeService();
   const [existUser, setexistUser] = useState();
   const checkIsExist = () => {
@@ -25,31 +25,35 @@ const Auth = ({setRefreshCheckLogin}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existUser]);
   return (
-    <div className="content justify-center content-center grid">
-      {typeof existUser === 'undefined' ? (
-        <p>Cargando.....</p>
-      ) : (
-        <>
-          <div className="cart-box">
-            <div className="section-one grid justify-end content-center">
-              {existUser ? <Login setRefreshCheckLogin={setRefreshCheckLogin}/> : <Register setexistUser={setexistUser} />}
-              <a href="/forgot" className="text-xs ml-8 text-white">Olvidaste tu password?</a>
+    <Suspense fallback={<p>Hola</p>}>
+      <div className="content justify-center content-center grid">
+        {typeof existUser === "undefined" ? (
+          <p className="text-white font-semibold text-base">Cargando.....</p>
+        ) : (
+          <>
+            <div className="back"></div>
+            <div className="cart-box">
+              <div className="section-one grid justify-end content-center">
+                <div className="w-full flex flex-col items-center content-center justify-center">
+                  <span className="text-lg mb-5 font-semibold text-gray-600">
+                    M&E Soporte Tecnico
+                  </span>
+                  <img className=" w-40" src={Computer} alt="none" />
+                </div>
+                {existUser ? (
+                  <Login setRefreshCheckLogin={setRefreshCheckLogin} />
+                ) : (
+                  <Register setexistUser={setexistUser} />
+                )}
+                <Link to="/forgot" className="text-xs ml-8 text-blue-500">
+                  Olvidaste tu password?
+                </Link>
+              </div>
             </div>
-            <div className="section-two">
-              <h1 className="absolute log-text top-28 mt-10 ml-10 font-semibold text-xl">
-                M&E Soporte Tecnico Informatico
-              </h1>
-              <img className="first-svg" src={SVGFirst} alt="none" />
-            </div>
-          </div>
-          <img
-            src={SVGWave}
-            className="absolute bottom-0 svg-wave"
-            alt="none"
-          />
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </Suspense>
   );
 };
 

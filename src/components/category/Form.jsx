@@ -1,57 +1,61 @@
+import { useFormik } from "formik";
 import React from "react";
 import { toast } from "react-toastify";
 import { CategoryService } from "../../services/category.service";
+import * as yup from "yup";
 
 const Form = ({ setReload, setShowModal, oldCategory }) => {
   const categoryServices = new CategoryService();
-  const [category, setCategory] = React.useState({
-    categoria: "" || oldCategory?.categoria,
-    id: null || oldCategory?.id,
-  });
-  const onChange = (e) => {
-    setCategory({ ...category, [e.target.name]: e.target.value });
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (category.categoria !== "") {
+
+  const formik = useFormik({
+    initialValues: { categoria: "" || oldCategory?.categoria },
+    validationSchema: yup.object({
+      categoria: yup
+        .string()
+        .required("El nombre de la categoria es requerido"),
+    }),
+    onSubmit: (values) => {
       if (!oldCategory) {
-        categoryServices.addCategory(category).then((resp) => {
+        categoryServices.addCategory(values).then((resp) => {
           setShowModal(false);
           setReload(true);
           toast.success(resp.message);
         });
-      } else {
-        categoryServices.putCategory(category).then((resp) => {
-          setShowModal(false);
-          setReload(true);
-          toast.success(resp.messge);
-        });
+        return;
       }
-    }
-  };
+      categoryServices.putCategory(values, oldCategory?.id).then((resp) => {
+        setShowModal(false);
+        setReload(true);
+        toast.success("Se actualizo la categoria");
+      });
+    },
+  });
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <div>
-        <div className="grid grid-rows-2 gap-0">
+        <div className="flex flex-col">
+          <label className="text-xs font-semibold text-gray-600">Nombre</label>
           <input
-            type="text"
-            name="id"
-            onChange={onChange}
-            defaultValue={category.id}
-            className="hidden"
-          />
-          <label>Nombre</label>
-          <input
-            className="rounded border border-solid p-2 w-80"
-            placeholder="nombre"
-            defaultValue={category.categoria}
+            className={
+              "rounded border border-solid p-2 text-xs text-gray-600 font-semibold w-72 mt-2 " +
+              (formik.errors.categoria && formik.touched.categoria
+                ? " border-red-500"
+                : "border-gray-400")
+            }
+            placeholder="Ingresa el nombre de la categoria"
+            defaultValue={oldCategory?.categoria}
             name="categoria"
-            onChange={onChange}
-          ></input>
+            onChange={formik.handleChange}
+          />
+          {formik.errors.categoria && formik.touched.categoria && (
+            <span className="text-xs font-semibold text-red-500">
+              {formik.errors.categoria}
+            </span>
+          )}
         </div>
         <button
           type="submit"
-          className="bg-global p-2 w-28 text-center text-semibold mt-8 text-white rounded-md font-semibold text-xs mr-8"
+          className="bg-global p-2 w-full text-center text-semibold mt-8 text-white rounded-md font-semibold text-xs mr-8"
         >
           {oldCategory ? "Actualizar" : "Guardar"}
         </button>

@@ -30,7 +30,7 @@ const Account = ({ showModal, setShowModal }) => {
   };
   return (
     <Layout>
-      <p className="mx-8 text-3xl font-light">Mi cuenta</p>
+      <p className="mx-8 text-lg font-semibold">Mi cuenta</p>
       <div className="my-8 mx-8 shadow p-8 w-full rounded flex">
         <div className="w-7/12 ml-12">
           <EmpInfo empInfo={empInfo}/>

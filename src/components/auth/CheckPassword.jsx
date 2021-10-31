@@ -122,13 +122,13 @@ const CheckPassword = (props) => {
             <Form>
               <div className="login-container grid w-80 p-8 mr-4 mt-6">
                 <div className="flex flex-col justify-center content-center">
-                  <label className="text-xs text-gray-300">Contraseña</label>
+                  <label className="text-xs font-semibold text-gray-600">Contraseña</label>
                   <Field
                     name="password"
                     type="password"
                     placeholder="Ingresa tu contraseña"
                     className={
-                      "text-gray-500 outline-none focus:outline-none rounded-sm px-4 text-xs py-1 mt-2" +
+                      "text-gray-500 w-full outline-none border focus:outline-none rounded-sm px-2 text-xs py-2 mt-2" +
                       (errors.password && touched.password
                         ? " border-red-500"
                         : " border-gray-300")
@@ -144,7 +144,7 @@ const CheckPassword = (props) => {
                 </div>
                 <button
                   type="submit"
-                  className="mt-10 ml-3 md:ml-0 w-full md:w-6/12 login-button rounded-md text-md p-1 font-semibold text-white"
+                  className="mt-10 ml-3 md:ml-0 w-full bg-global rounded-md text-md p-1 font-semibold text-white"
                 >
                   Iniciar Sesion
                 </button>

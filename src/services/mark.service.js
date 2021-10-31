@@ -15,7 +15,7 @@ export class MarkService extends TokenService {
   }
   async showMarks(page, search) {
     const response = await fetch(
-      `${API_HOST}/marca/marcas-paginated?pagina=${page}&marca=${search}`
+      `${API_HOST}/marca/marcas-paginated?pagina=${page}&marca=${search}&limit=5`
     );
     return response.json();
   }
@@ -44,8 +44,8 @@ export class MarkService extends TokenService {
     });
     return response.json();
   }
-  async putMark(data) {
-    const response = await fetch(`${API_HOST}/marca/${data.id}`, {
+  async putMark(data,id) {
+    const response = await fetch(`${API_HOST}/marca/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

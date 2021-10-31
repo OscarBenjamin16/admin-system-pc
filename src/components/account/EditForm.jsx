@@ -42,11 +42,11 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
         <Form>
           <div className="login-container grid w-80 p-2 mr-4">
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Nombre</label>
+              <label className="text-xs text-gray-600 font-semibold">Nombre</label>
               <Field
                 name="nombre"
                 className={
-                  "border-solid text-gray-800 border rounded px-4 outline-none focus:outline-none bg-transparent text-sm p-1 " +
+                  "border-solid text-gray-600 border rounded px-4 outline-none focus:outline-none bg-transparent text-xs font-semibold p-1 " +
                   (errors.nombre && touched.nombre
                     ? " border-red-500"
                     : " border-gray-300")
@@ -57,16 +57,16 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
                 <ErrorMessage
                   name="nombre"
                   component="span"
-                  className="text-red-400 font-small"
+                  className="text-red-400 text-xs font-semibold"
                 />
               )}
             </div>
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Apellido</label>
+              <label className="text-xs text-gray-600 font-semibold">Apellido</label>
               <Field
                 name="apellido"
                 className={
-                  "border-solid text-gray-800 border rounded px-4 outline-none focus:outline-none bg-transparent text-sm p-1 " +
+                  "border-solid text-gray-600 border rounded px-4 outline-none focus:outline-none bg-transparent text-xs font-semibold p-1 " +
                   (errors.nombre && touched.nombre
                     ? " border-red-500"
                     : " border-gray-300")
@@ -77,16 +77,16 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
                 <ErrorMessage
                   name="apellido"
                   component="span"
-                  className="text-red-400 font-small"
+                  className="text-red-400 text-xs font-semibold"
                 />
               )}
             </div>
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Telefono</label>
+              <label className="text-xs text-gray-600 font-semibold">Telefono</label>
               <Field
                 name="telefono"
                 className={
-                  "border-solid text-gray-800 border rounded px-4 outline-none focus:outline-none bg-transparent text-sm p-1 " +
+                  "border-solid text-gray-600 border rounded px-4 outline-none focus:outline-none bg-transparent text-xs font-semibold p-1 " +
                   (errors.telefono && touched.telefono
                     ? " border-red-500"
                     : " border-gray-300")
@@ -97,16 +97,16 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
                 <ErrorMessage
                   name="telefono"
                   component="span"
-                  className="text-red-400 font-small"
+                  className="text-red-400 text-xs font-semibold"
                 />
               )}
             </div>
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Direccion</label>
+              <label className="text-xs text-gray-600 font-semibold">Direccion</label>
               <Field
                 name="direccion"
                 className={
-                  "border-solid text-gray-800 border rounded px-4 outline-none focus:outline-none bg-transparent text-sm p-1 " +
+                  "border-solid text-gray-600 border rounded px-4 outline-none focus:outline-none bg-transparent text-xs font-semibold p-1 " +
                   (errors.direccion && touched.direccion
                     ? " border-red-500"
                     : " border-gray-300")
@@ -122,11 +122,11 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
               )}
             </div>
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Email</label>
+              <label className="text-xs text-gray-600 font-semibold">Email</label>
               <Field
                 name="email"
                 className={
-                  "border-solid text-gray-800 border rounded px-4 outline-none focus:outline-none bg-transparent text-sm p-1 " +
+                  "border-solid text-gray-600 border rounded px-4 outline-none focus:outline-none bg-transparent text-xs font-semibold p-1 " +
                   (errors.email && touched.email
                     ? " border-red-500"
                     : " border-gray-300")
@@ -137,7 +137,7 @@ const EditForm = ({ empInfo, setReload, setShowModal }) => {
                 <ErrorMessage
                   name="email"
                   component="span"
-                  className="text-red-400 font-small"
+                  className="text-red-400 text-xs font-semibold"
                 />
               )}
             </div>

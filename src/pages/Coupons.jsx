@@ -9,17 +9,14 @@ import Table from "../components/coupon/Table";
 const Coupons = ({ setShowModal, showModal }) => {
   const [coupons, setCoupons] = useState();
   const couponService = new CouponService();
-  const [rangePag, setRangePag] = useState(null);
   const [reload, setReload] = useState(false);
+  const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({
     nextPage: 0,
     prevPage: 0,
     currentPage: 0,
     totalPages: 0,
   });
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
   const getPaginatedCoupons = (page = 1) => {
     couponService.getCoupons(page).then((res) => {
       setCoupons(res.cupones);
@@ -29,7 +26,6 @@ const Coupons = ({ setShowModal, showModal }) => {
         currentPage: res.currentPage,
         totalPages: res.totalPages,
       });
-      range(1, res.totalPages);
     });
   };
   const ExpiredCupon = () => {
@@ -52,9 +48,9 @@ const Coupons = ({ setShowModal, showModal }) => {
   }, [coupons]);
   useEffect(() => {
     setReload(false);
-    return getPaginatedCoupons(1);
+    return getPaginatedCoupons(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload]);
+  }, [reload, page]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -80,9 +76,9 @@ const Coupons = ({ setShowModal, showModal }) => {
           <Table coupons={coupons} setReload={setReload} />
           {pagination?.totalPages > 1 && (
             <Pagination
-              method={getPaginatedCoupons}
-              pagination={pagination}
-              rangePag={rangePag}
+              method={setPage}
+              totalPages={pagination.totalPages}
+              current={pagination.currentPage}
             />
           )}
         </div>
