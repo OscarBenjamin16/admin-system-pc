@@ -15,10 +15,11 @@ import InputSearch from "../components/global/InputSearch";
 const Product = ({ showModal, setShowModal }) => {
   const [marks, setMarks] = useState(null);
   const [categories, setCategories] = useState(null);
+  const [state, setState] = useState(true);
   const [reload, setReload] = useState(false);
   const [providers, setProviders] = useState(null);
   const [products, setProducts] = useState(null);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({
     nextPage: 0,
@@ -69,7 +70,8 @@ const Product = ({ showModal, setShowModal }) => {
       });
   };
   const getProducts = (page = 1, search = "") => {
-    productService.showProducts(page, search).then((res) => {
+    productService.showProducts(page, search, 5, state ? 1 : 0).then((res) => {
+      console.log(res);
       setProducts(res.producto);
       setPagination({
         nextPage: res.nextPage,
@@ -82,9 +84,9 @@ const Product = ({ showModal, setShowModal }) => {
   useEffect(() => {
     getValues();
     setReload(false);
-    getProducts(page, search);
+    getProducts(page, search,5,state);
     return;
-  }, [reload,page, search]);
+  }, [reload, page, search,state]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -93,13 +95,35 @@ const Product = ({ showModal, setShowModal }) => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Productos
             </h2>
-           <div style={{width:"70%"}} className="mt-4">
-           <InputSearch
-              label="Buscar por nombre"
-              placeholder="Escribe para buscar un producto..."
-              handleChange={(e) => setSearch(e.target.value)}
-            />
-           </div>
+            <div style={{ width: "70%" }} className="mt-4">
+              <InputSearch
+                label="Buscar por nombre"
+                placeholder="Escribe para buscar un producto..."
+                handleChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="text-xs">Mostrar</label>
+              <div className="text-xl font-semibold flex mt-1">
+                <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                  <input
+                    type="checkbox"
+                    name="toggle"
+                    id="toggle"
+                    checked={state}
+                    onClick={() => setState(!state)}
+                    className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                  />
+                  <label
+                    htmlFor="toggle"
+                    className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                  ></label>
+                </div>
+                <span className="text-sm font-normal text-gray-600 mt-1">
+                  {state ? "Activos" : "Inactivos"}
+                </span>
+              </div>
+            </div>
             <button
               onClick={() => setShowModal(true)}
               className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"
@@ -130,11 +154,11 @@ const Product = ({ showModal, setShowModal }) => {
             categories={categories}
             providers={providers}
           />
-          {pagination && pagination?.totalPages > 1 && (
+          {pagination.totalPages > 1 && (
             <Pagination
               method={setPage}
               current={pagination?.currentPage}
-              totalPages={pagination?.currentPage}
+              totalPages={pagination?.totalPages}
             />
           )}
         </div>
