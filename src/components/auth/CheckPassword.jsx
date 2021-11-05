@@ -5,7 +5,7 @@ import { EmployeeService } from "../../services/employe.service";
 import { toast } from "react-toastify";
 
 const CheckPassword = (props) => {
-  const { code, existUser, setRefreshCheckLogin } = props;
+  const { code, existUser, setRefreshCheckLogin, setShow } = props;
   const emplService = new EmployeeService();
   const login = (values) => {
     const data = {
@@ -52,18 +52,20 @@ const CheckPassword = (props) => {
         >
           {({ errors, touched }) => (
             <Form>
-              <div className="login-container grid w-80 p-8 mr-4 mt-6 ml-5 md:ml-0">
-                <span className="font-light text-md text-white">
+              <div className="login-container grid w-80 px-8 mr-4 ml-5 md:ml-0">
+                <h1 className="text-gray-600 text-sm md:text-md py-4 font-semibold uppercase text-center md:ml-6">
                   Configura tu password
-                </span>
-                <div className="flex flex-col justify-center content-center mt-4">
-                  <label className="text-xs text-gray-300">Contraseña</label>
+                </h1>
+                <div className="flex flex-col justify-center content-center">
+                  <label className="text-xs text-gray-500 font-semibold">
+                    Contraseña
+                  </label>
                   <Field
                     name="password"
                     placeholder="Ingresa tu contraseña"
                     type="password"
                     className={
-                      "text-gray-500 outline-none focus:outline-none rounded-sm px-4 text-xs py-1 mt-2" +
+                      "text-gray-500 border rounded outline-none focus:outline-none px-4 text-xs py-1 mt-2" +
                       (errors.password && touched.password
                         ? " border-red-500"
                         : " border-gray-300")
@@ -77,8 +79,8 @@ const CheckPassword = (props) => {
                     />
                   )}
                 </div>
-                <div className="flex flex-col justify-center content-center mt-4 ml-5 md:ml-0">
-                  <label className="text-xs text-gray-300">
+                <div className="flex flex-col justify-center content-center mt-2 ml-5 md:ml-0">
+                  <label className="text-xs text-gray-500 font-semibold">
                     Repite tu contraseña
                   </label>
                   <Field
@@ -86,7 +88,7 @@ const CheckPassword = (props) => {
                     type="password"
                     placeholder="Confirma tu contraseña"
                     className={
-                      "text-gray-500 outline-none focus:outline-none rounded-sm px-4 text-xs py-1 mt-2" +
+                      "text-gray-500 outline-none focus:outline-none rounded border px-4 text-xs py-1 mt-2" +
                       (errors.repeatPassword && touched.repeatPassword
                         ? " border-red-500"
                         : " border-gray-300")
@@ -102,7 +104,7 @@ const CheckPassword = (props) => {
                 </div>
                 <button
                   type="submit"
-                  className="mt-10 w-6/12 login-button rounded-md text-md p-1 font-semibold text-white"
+                  className=" w-full bg-blue-500 my-3 py-1 rounded-md text-sm font-semibold text-white"
                 >
                   Guardar
                 </button>
@@ -120,9 +122,11 @@ const CheckPassword = (props) => {
         >
           {({ errors, touched }) => (
             <Form>
-              <div className="login-container grid w-80 p-8 mr-4 mt-6">
+              <div className="login-container grid w-80 p-8 mr-4">
                 <div className="flex flex-col justify-center content-center">
-                  <label className="text-xs font-semibold text-gray-600">Contraseña</label>
+                  <label className="text-xs font-semibold text-gray-600">
+                    Contraseña
+                  </label>
                   <Field
                     name="password"
                     type="password"
@@ -153,6 +157,12 @@ const CheckPassword = (props) => {
           )}
         </Formik>
       )}
+      <span
+        onClick={() => setShow(false)}
+        className="text-gray-500 font-semibold px-8 py-4 cursor-pointer"
+      >
+        Atras
+      </span>
     </>
   );
 };

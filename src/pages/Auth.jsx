@@ -45,7 +45,7 @@ const Auth = ({ setRefreshCheckLogin }) => {
                 ) : (
                   <Register setexistUser={setexistUser} />
                 )}
-                <Link to="/forgot" className="text-xs ml-8 text-blue-500">
+                <Link to="/forgot" className="text-xs ml-16 md:ml-8 text-blue-500">
                   Olvidaste tu password?
                 </Link>
               </div>

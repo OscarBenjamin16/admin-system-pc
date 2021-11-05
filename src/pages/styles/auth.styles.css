@@ -30,22 +30,27 @@
   background-color: #fff;
 }
 @media screen and (max-width: 600px) {
+  .section-one{
+    width: 300px;
+    height:500px;
+    border-radius:10px;
+    background-color: #fff;
+  }
+  .back {
+    position: fixed;
+    top: 50%;
+    z-index:-1;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height:450px;
+    background-color: #EDFCFC;
+    box-shadow: -1px 4px 6px -1px rgba(0, 0, 0, 0.3);
+    border-radius:10px;
+    
+  }
   .content {
     position: fixed;
-  }
-
-  .svg-wave {
-    position: fixed;
-  }
-
-  .cart-box {
-    border-radius: 10px;
-    background-image: none !important;
-    background-color: #4e4956 !important;
-    width: 325px !important;
-    height: 400px !important;
-  }
-  .cart-box .section-two {
-    display: none;
   }
 }
