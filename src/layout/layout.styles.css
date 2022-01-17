@@ -1,3 +1,6 @@
 .icons,.menu-options{
     background-color: #0033a0;
 }
+
+.icons{
+    background-color: #0033a0 !important;
