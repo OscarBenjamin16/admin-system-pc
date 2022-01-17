@@ -20,7 +20,6 @@ const Users = ({ showModal, setShowModal }) => {
   const getUsers = (page = 1) => {
     usService.getUsers(page).then((res) => {
       setUsers(res.OrdenesCliente);
-      console.log(res);
       setPagination({
         nextPage: res.nextPage,
         prevPage: res.prevPage,
