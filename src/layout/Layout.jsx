@@ -4,7 +4,7 @@ import NavbarIcons from "../components/layout/NavbarIcons";
 import NavbarOptions from "../components/layout/NavbarOptions";
 
 const Layout = ({ children }) => {
-  const [openMenu, setOpenMenu] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(true);
   return (
     <div className="flex w-screen h-screen">
       <div
