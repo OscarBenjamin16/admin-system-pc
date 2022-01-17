@@ -17,7 +17,6 @@ const Reports = () => {
       ordService.filterDates().then((res) => {
         const completed = res.orders?.map((order)=>order).filter(order=>order.status !== 0);
         setTotalSales(completed)
-        console.log(completed)
       });
     };
     getOrders();
