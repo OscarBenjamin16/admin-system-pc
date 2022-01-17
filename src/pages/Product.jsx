@@ -71,7 +71,6 @@ const Product = ({ showModal, setShowModal }) => {
   };
   const getProducts = (page = 1, search = "") => {
     productService.showProducts(page, search, 5, state ? 1 : 0).then((res) => {
-      console.log(res);
       setProducts(res.producto);
       setPagination({
         nextPage: res.nextPage,
