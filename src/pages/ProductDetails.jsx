@@ -47,64 +47,64 @@ export default function ProductDetails() {
   return (
     <Layout>
       {product ? (
-        <div className="w-full grid gap-8 grid-cols-2 border p-8 shadow rounded m-8 h-auto">
+        <div className="w-full grid gap-8 grid-cols-2 border p-8 py-14 shadow rounded mt-8 h-auto">
           <div className="max-w-96">
-            <p className="font-thin text-xl">
-              <span className="uppercase text-xl font-semibold">Nombre:</span>{" "}
+            <p className="font-thin text-sm font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">Nombre:</span>{" "}
               {product?.nombreProducto}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">Marca:</span>{" "}
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">Marca:</span>{" "}
               {product?.marca.marca}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">
                 Proveedor:
               </span>{" "}
               {product?.proveedor.nombre_proveedor}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">
                 Categoria:
               </span>{" "}
               {product?.categoria.categoria}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">Precio:</span> $
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">Precio:</span> $
               {product?.costo_standar}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">
                 Descuento:
               </span>{" "}
               {product?.descuento}%
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">Stock:</span>{" "}
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">Stock:</span>{" "}
               {product?.catidad_por_unidad}
             </p>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">Estado:</span>{" "}
+            <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">Estado:</span>{" "}
               {product?.status ? "Activo" : "Inactivo"}
             </p>
            <div className="w-full h-auto">
-           <p className="mt-2 font-thin text-base">
-              <span className="uppercase text-md font-semibold">
+           <p className="mt-2 font-thin text-xs font-mono">
+              <span className="uppercase text-sm font-mono font-semibold">
                 Descripcion:
               </span>{" "}
-              <span className="w-96 ">
+              <span className="w-96 font-mono text-xs ">
               {product?.descripcion}
               </span>
             </p>
            </div>
-            <p className="mt-2 font-thin text-xl">
-              <span className="uppercase text-md font-semibold">Codigo:</span>{" "}
+            <p className="mt-2 font-thin text-sm">
+              <span className="uppercase text-sm font-mono font-semibold">Codigo:</span>{" "}
             </p>
             <div className="">
               <Barcode
                 width={1}
-                fontSize={13}
-                height={65}
+                fontSize={12}
+                height={60}
                 value={product?.codigo_Producto}
               />
             </div>
@@ -115,7 +115,7 @@ export default function ProductDetails() {
               alt="none"
               className="max-w-60 max-h-60 rounded pb-4"
             />
-            <span className="mt-4 font-thin text-2xl">Mas imagenes</span>
+            <span className="mt-4 font-thin text-sm font-mono">Mas imagenes</span>
             <div className="grid grid-cols-4 gap-5 mt-4">
                 <div
                   onClick={() => setImg(product?.imagen)}

@@ -6,11 +6,11 @@ const Detail = ({ product }) => {
     <div className="w-full grid grid-cols-2">
       <div className="w-96">
         <p>
-          <span className="uppercase text-md font-semibold">Nombre:</span>{" "}
+          <span className="uppercase text-sm font-mono font-semibold">Nombre:</span>{" "}
           {product?.nombreProducto}
         </p>
         <p className="mt-2">
-          <span className="uppercase text-md font-semibold">Marca:</span>{" "}
+          <span className="uppercase text-sm font-mono font-semibold">Marca:</span>{" "}
           {product?.marca.marca}
         </p>
         <p className="mt-2">

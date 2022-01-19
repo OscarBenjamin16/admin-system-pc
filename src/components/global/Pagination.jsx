@@ -1,101 +1,113 @@
-import React from "react";
-import ReactPaginate from "react-paginate";
+import { useEffect, useState } from "react";
+import { usePagination, DOTS } from "../../hooks/usePagination";
+import "./Pagination.css";
+const Pagination = (props) => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 4,
+    currentPage,
+    pageSize,
+    last,
+  } = props;
 
-const Pagination = ({ method, totalPages, current }) => {
-  if(totalPages === 1 ){
+  const [pagination, setPagination] = useState({
+    totalCount: 0,
+    currentPage: 0,
+    pageSize: 0,
+    last: 0,
+  });
+
+  useEffect(() => {
+    return setPagination({
+      totalCount: totalCount,
+      currentPage: currentPage,
+      pageSize: pageSize,
+      last: last,
+    });
+  }, [last, totalCount, currentPage, pageSize]);
+
+  const paginationRange = usePagination({
+    currentPage: pagination.currentPage,
+    totalCount: pagination.totalCount,
+    siblingCount,
+    pageSize: pagination.pageSize,
+  });
+
+  if (pagination.currentPage === 0 || paginationRange?.length < 2) {
     return null;
   }
+
+  const onNext = () => {
+    onPageChange(pagination.currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(pagination.currentPage - 1);
+  };
+
   return (
-    <div className="w-full md:flex justify-center mt-4">
-      <div className="flex md:hidden">
-        <button
-          disabled={current === 1}
-          onClick={() => method(current - 1)}
-          className="bg-blue-500 text-white text-xs px-4 py-1 rounded flex justify-center items-center focus:outline-none font-semibold"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather text-white feather-chevron-left w-6 h-6"
+    <div className="flex flex-col items-start my-6">
+      <ul className="flex text-gray-700">
+        <div className="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
+          <button
+            className="hover:border-0"
+            disabled={pagination.currentPage === 1}
+            onClick={onPrevious}
           >
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>{" "}
-          Anterior
-        </button>
-        <button  disabled={current === totalPages}
-          onClick={() => method(current + 1)} className="bg-blue-500 text-white ml-4 text-xs px-4 py-1 rounded flex justify-center items-center focus:outline-none font-semibold">
-          Siguiente{" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather text-white feather-chevron-right w-6 h-6"
-          >
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-      </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather text-blue-500 feather-chevron-right w-6 h-6"
-          >
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        }
-        onPageChange={(data) => method(data.selected + 1)}
-        pageRangeDisplayed={2}
-        pageCount={totalPages}
-        previousLabel={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather text-blue-500 feather-chevron-left w-6 h-6"
-          >
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        }
-        renderOnZeroPageCount={null}
-        marginPagesDisplayed={2}
-        containerClassName="flex h-7 font-medium w-full overflow-auto md:w-96 bg-white-200"
-        pageClassName="w-7 hidden md:flex text-blue-500 justify-center rounded-full border ml-1 border-blue-500 items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in"
-        pageLinkClassName="w-7 md:flex  justify-center text-xs  items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
-        activeClassName="bg-blue-500 text-white"
-        activeLinkClassName="text-white"
-        previousClassName="w-10 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
-        nextClassName="w-10 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
-        breakClassName="w-7 flex text-blue-500 justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
-      />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-chevron-left w-4 h-4"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+        </div>
+        <div className="flex h-8 font-medium rounded-full bg-gray-200">
+          {paginationRange?.map((pageNumber) => {
+            return (
+              <li
+                key={pageNumber}
+                className={
+                  (pagination.currentPage === pageNumber
+                    ? "bg-global text-white"
+                    : "") +
+                  " w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
+                }
+                onClick={() => pageNumber !== DOTS && onPageChange(pageNumber)}
+              >
+                {pageNumber}
+              </li>
+            );
+          })}
+        </div>
+        <div className="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
+          <button disabled={pagination.currentPage === last} onClick={onNext}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-chevron-right w-4 h-4"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </ul>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const Modal = ({ showModal, setShowModal, children, title }) => {
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg border-b py-2 leading-6 font-medium text-gray-900"
+                      className="text-base font-mono border-b py-2 leading-6 font-semibold text-gray-900"
                     >
                       {title}
                     </Dialog.Title>

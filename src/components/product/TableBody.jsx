@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteAction from "../global/DeleteAction";
 import useAuth from "../../hooks/useAuth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function TableBody({
   products,
@@ -82,24 +84,24 @@ export default function TableBody({
               <TDComponent>
                 <button
                   onClick={() => edit(product)}
-                  className="bg-global p-2 text-xs w-20 rounded mr-4 text-white font-semibold"
+                  className="bg-global rounded-full p-3 w-10 text-white font-semibold"
                 >
-                  Editar
+                  <FontAwesomeIcon className="text-xs" icon={faPen}/>
                 </button>
                 {auth.role === "admin" && product.catidad_por_unidad < 1 && (
                   <button
                     onClick={() => deleteProduct(product.id)}
-                    className="bg-red-400 p-2 text-xs w-20 rounded text-white font-semibold"
+                    className="bg-red-400 ml-2 rounded-full p-3 w-10 text-white font-semibold"
                   >
-                    Eliminar
+                   <FontAwesomeIcon className="text-xs" icon={faTrash}/>
                   </button>
                 )}
                 {product.catidad_por_unidad < 1 && (
                   <button
                     onClick={() => addStock(product)}
-                    className="bg-green-500 ml-4  p-2 text-xs whitespace-nowrap  rounded text-white font-semibold"
+                    className="bg-green-400 ml-2  rounded-full p-3 w-10 text-white font-semibold"
                   >
-                    Agregar stock
+                   <FontAwesomeIcon className="text-xs" icon={faPlus}/>
                   </button>
                 )}
               </TDComponent>
