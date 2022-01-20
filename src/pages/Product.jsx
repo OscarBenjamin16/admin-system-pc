@@ -160,6 +160,7 @@ const Product = ({ showModal, setShowModal }) => {
             <Table
               setShowModal={setShowModal}
               showModal={showModal}
+              setState={setState}
               setReload={setReload}
               products={products}
               marks={marks}

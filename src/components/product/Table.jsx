@@ -7,7 +7,7 @@ import TableLoading from "../global/TableLoading";
 const TableBody = lazy(() => import("./TableBody"));
 
 const Table = (props) => {
-  const { products, setReload, marks, providers, categories } = props;
+  const { products, setReload,setState, marks, providers, categories } = props;
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState(null);
   const [showAddStock, setShowAddStock] = useState(false);
@@ -65,6 +65,7 @@ const Table = (props) => {
           setShowModal={setShowAddStock}
         >
           <StockForm
+          setState={setState}
             setReload={setReload}
             setShowModal={setShowAddStock}
             idP={productStock?.id}
