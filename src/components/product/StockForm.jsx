@@ -15,9 +15,9 @@ const StockForm = ({ idP, setShowModal, setReload, setState }) => {
       precioCompra: Yup.number()
         .required("El precio de compra es requerido")
         .typeError("Precio invalido"),
-      beneficio: Yup.number()
-        .required("La ganancia es requerida")
-        .typeError("La ganancia es invalida"),
+      costo_standar: Yup.number()
+        .required("El precio de venta es requerido")
+        .typeError("El precio de venta es invalida"),
     }),
     onSubmit: (values) => {
       prdService.addStockProduct(idP, values).then((res) => {
@@ -80,28 +80,25 @@ const StockForm = ({ idP, setShowModal, setReload, setState }) => {
         </div>
         <div className="flex flex-col p-1 mt-1">
           <label className="text-sm font-mono text-gray-400">
-            Ganancia de venta
+            Precio de venta
           </label>
           <div className="flex">
             <input
               type="text"
-              name="beneficio"
+              name="costo_standar"
               onChange={formik.handleChange}
-              placeholder="Ingresa la ganancia del producto"
+              placeholder="Ingresa el precio de venta del producto"
               className={
                 "border p-1 px-2 text-sm font-mono rounded border-r-0 focus:outline-none focus:border w-full " +
-                (formik.errors.beneficio && formik.touched.beneficio
+                (formik.errors.costo_standar && formik.touched.costo_standar
                   ? "border-red-400"
                   : "border-gray-300")
               }
             />
-            <span className="border px-4 py-1 text-sm rounded absolute mr-6 bg-gray-300 font-bold right-0">
-              %
-            </span>
           </div>
-          {formik.errors.beneficio && formik.touched.beneficio && (
+          {formik.errors.costo_standar && formik.touched.costo_standar && (
             <span className="font-small font-normal text-red-400">
-              {formik.errors.beneficio}
+              {formik.errors.costo_standar}
             </span>
           )}
         </div>
@@ -121,6 +118,6 @@ function defaultValues() {
   return {
     cantidadProducto: "",
     precioCompra: "",
-    beneficio: "",
+    costo_standar: "",
   };
 }
